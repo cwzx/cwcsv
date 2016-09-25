@@ -1,0 +1,12 @@
+bin/
+lib/
+
+# Visual Studio stuff
+*.suo
+*.VC.db
+*.VC.opendb
+build/*/cwcsv/x64
+build/*/cwcsv/Win32
+build/*/examples/*/x64
+build/*/examples/*/Win32
+
