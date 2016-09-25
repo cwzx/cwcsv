@@ -9,4 +9,8 @@ build/*/cwcsv/x64
 build/*/cwcsv/Win32
 build/*/examples/*/x64
 build/*/examples/*/Win32
+build/*/bench/x64
+build/*/bench/Win32
+build/*/test/x64
+build/*/test/Win32
 
