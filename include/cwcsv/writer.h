@@ -80,7 +80,7 @@ namespace csv {
 		}
 
 		template<typename Itr>
-		void write_row( Itr p1, Itr p2 ) {
+		void write_row_range( Itr p1, Itr p2 ) {
 			for(;p1!=p2;++p1) {
 				write_cell( *p1 );
 				if( std::next(p1) != p2 ) {
