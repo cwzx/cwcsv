@@ -14,6 +14,8 @@ std::string load_file( const char* filename ) {
 
 	std::string output( len, '\0' );
 	in.read( &output[0], len );
+	auto actual_len = in.gcount();
+	output.erase( actual_len );
 	return output;
 }
 
