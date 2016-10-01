@@ -1,6 +1,8 @@
 bin/
 lib/
 
+examples/*/*.csv
+
 # Visual Studio stuff
 *.suo
 *.VC.db

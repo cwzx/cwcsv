@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <cwcsv/csv.h>
 
@@ -7,7 +8,7 @@ using namespace std;
 int main( int argc, char** argv ) {
 
 	auto& text = "a,b,c,d,e\n"
-	             "1,2,3,4,5\n";
+	             "1,2,3,4,5";
 
 	auto parser = csv::make_parser( text );
 
@@ -19,33 +20,49 @@ int main( int argc, char** argv ) {
 	}
 
 	cout << "=====================\n";
+	{
+		auto row = parser.begin();
+		++row; // skip header
 
-	auto row = parser.begin();
-	++row; // skip header
-
-	std::vector<int> data;
+		std::vector<int> data;
 	
-	std::transform( row.begin(), row.end(), std::back_inserter(data), []( auto&& x ){ return x.to_int(); });
+		std::transform( row.begin(), row.end(), std::back_inserter(data), []( auto&& x ){ return x.to_int(); });
 	
-	for( auto&& x : data ) {
-		cout << '[' << x << ']';
+		for( auto&& x : data ) {
+			cout << '[' << x << ']';
+		}
+		cout << '\n';
 	}
-	cout << '\n';
-	
 	cout << "=====================\n";
+	{
+		std::string out;
 
-	std::string out;
+		auto writer = csv::make_writer( back_inserter(out) );
 
-	auto writer = csv::make_writer( back_inserter(out) );
+		writer.write_row( "Open", "High", "Low", "Close" );
+		writer.write_row( 101, 102.5, 99.8, 102 );
 
-	writer.write_row( "Open", "High", "Low", "Close" );
-	writer.write_row( 101, 102.5, 99.8, 102 );
+		auto vals = { 100.2, 103.1, 98.6, 101.5 };
 
-	auto vals = { 100.2, 103.1, 98.6, 101.5 };
+		writer.write_row_range( vals.begin(), vals.end() );
 
-	writer.write_row_range( vals.begin(), vals.end() );
+		cout << out;
+	}
+	cout << "=====================\n";
+	{
 
-	cout << out;
+		std::ofstream out("test.csv");
+
+		auto writer = csv::make_writer( out );
+
+		writer.write_row( "Open", "High", "Low", "Close" );
+		writer.write_row( 101, 102.5, 99.8, 102 );
+
+		auto vals = { 100.2, 103.1, 98.6, 101.5 };
+
+		writer.write_row_range( vals.begin(), vals.end() );
+
+	}
 
 	cin.get();
 }

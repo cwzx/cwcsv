@@ -10,7 +10,7 @@ CSV reading and writing
 
 ```cpp
 auto& text = "a,b,c,d,e\n"
-             "1,2,3,4,5\n";
+             "1,2,3,4,5";
 
 auto parser = csv::make_parser( text );
 
@@ -42,7 +42,7 @@ cout << '\n';
 ```cpp
 std::ofstream out("test.csv");
 
-auto writer = csv::make_writer( std::ostream_iterator<char>(out) );
+auto writer = csv::make_writer( out );
 
 writer.write_row( "Open", "High", "Low", "Close" );
 writer.write_row( 101, 102.5, 99.8, 102 );

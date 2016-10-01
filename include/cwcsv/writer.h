@@ -114,6 +114,11 @@ namespace csv {
 		return writer<std::back_insert_iterator<T>,Val<T>>( p, separator, quote, new_line );
 	}
 
+	template<typename T>
+	writer<std::ostream_iterator<T>,T> make_writer( std::basic_ostream<T>& p, T separator=',', T quote='\"', T new_line='\n' ) {
+		return writer<std::ostream_iterator<T>,T>( std::ostream_iterator<T>(p), separator, quote, new_line );
+	}
+
 }
 
 #endif
