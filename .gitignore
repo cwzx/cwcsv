@@ -7,6 +7,9 @@ examples/*/*.csv
 *.suo
 *.VC.db
 *.VC.opendb
+*.VC.db-shm
+*.VC.db-wal
+*.ipch
 build/*/cwcsv/x64
 build/*/cwcsv/Win32
 build/*/examples/*/x64
