@@ -3,22 +3,6 @@
 #include <chrono>
 #include <cwcsv/csv.h>
 
-std::string load_file( const char* filename ) {
-	std::fstream in( filename );
-	if( !in )
-		return {};
-
-	in.seekg(0,std::ios::end);
-	auto len = in.tellg();
-	in.seekg(0,std::ios::beg);
-
-	std::string output( len, '\0' );
-	in.read( &output[0], len );
-	auto actual_len = in.gcount();
-	output.erase( actual_len );
-	return output;
-}
-
 void benchmark( const std::string& data, uint32_t N ) {
 	auto parser = csv::make_parser( data );
 
@@ -56,7 +40,7 @@ int main( int argc, char** argv ) {
 	const char* file = ( argc > 1 ) ? argv[1] : "sample.csv";
 	uint32_t N = 1000;
 
-	benchmark( load_file( file ), N );
+	benchmark( csv::load_file( file ), N );
 
 }
 

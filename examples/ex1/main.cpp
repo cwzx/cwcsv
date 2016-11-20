@@ -35,21 +35,6 @@ int main( int argc, char** argv ) {
 	}
 	cout << "=====================\n";
 	{
-		std::string out;
-
-		auto writer = csv::make_writer( back_inserter(out) );
-
-		writer.write_row( "Open", "High", "Low", "Close" );
-		writer.write_row( 101, 102.5, 99.8, 102 );
-
-		auto vals = { 100.2, 103.1, 98.6, 101.5 };
-
-		writer.write_row_range( vals.begin(), vals.end() );
-
-		cout << out;
-	}
-	cout << "=====================\n";
-	{
 
 		std::ofstream out("test.csv");
 
@@ -63,6 +48,37 @@ int main( int argc, char** argv ) {
 		writer.write_row_range( vals.begin(), vals.end() );
 
 	}
+	cout << "=====================\n";
+	{
 
+		auto in = csv::load_file("test.csv");
+
+		auto parser = csv::make_parser( in );
+
+		for( auto&& row : parser ) {
+			for( auto&& cell : row ) {
+				cout << '[' << cell.to_string() << ']';
+			}
+			cout << '\n';
+		}
+
+	}
+	cout << "=====================\n";
+	{
+
+		std::string out;
+
+		auto writer = csv::make_writer( std::back_inserter(out) );
+
+		writer.write_row( "Open", "High", "Low", "Close" );
+		writer.write_row( 101, 102.5, 99.8, 102 );
+
+		auto vals = { 100.2, 103.1, 98.6, 101.5 };
+
+		writer.write_row_range( vals.begin(), vals.end() );
+
+		cout << out;
+	}
+	
 }
 

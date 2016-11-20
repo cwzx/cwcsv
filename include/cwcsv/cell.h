@@ -118,13 +118,46 @@ namespace csv {
 			string_type str( cell_begin, cell_end );
 			return atoll( str.c_str() );
 		}
-
+		
 		std::pair<It,It> to_pair() const {
 			return std::make_pair(cell_begin,cell_end);
 		}
-
+		
 		/*std::basic_string_view<char_type> to_string_view() const {
 			return std::basic_string_view<char_type>(cell_begin,std::distance(cell_begin,cell_end));
+		}*/
+
+		template<typename T>
+		T to() const;
+
+		template<>
+		double to<double>() const {
+			return to_double();
+		}
+
+		template<>
+		int to<int>() const {
+			return to_int();
+		}
+
+		template<>
+		long to<long>() const {
+			return to_long();
+		}
+
+		template<>
+		long long to<long long>() const {
+			return to_longlong();
+		}
+
+		template<>
+		std::string to<std::string>() const {
+			return to_string();
+		}
+
+		/*template<>
+		std::basic_string_view<char_type> to<std::basic_string_view<char_type>>() const {
+			return to_string_view();
 		}*/
 
 		iterator begin() const {

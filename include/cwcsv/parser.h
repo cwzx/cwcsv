@@ -68,6 +68,17 @@ namespace csv {
 		return parser<const Char*>( str, str + N, separator, quote, new_line );
 	}
 
+	/*template<typename T>
+	parser<std::istream_iterator<T>> make_parser( std::basic_istream<T>& p, T separator=',', T quote='\"', T new_line='\n' ) {
+		auto len = p.tellg();
+		auto beg = std::istream_iterator<T>(p);
+		p.seekg(0,std::ios::end);
+		auto end = std::istream_iterator<T>(p);
+		p.clear();
+		p.seekg(len);
+		return parser<std::istream_iterator<T>>( beg, end, separator, quote, new_line );
+	}*/
+
 }
 
 #endif

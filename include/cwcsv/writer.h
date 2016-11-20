@@ -1,7 +1,6 @@
 #ifndef CWCSV_WRITER_H
 #define CWCSV_WRITER_H
 #include <utility>
-#include <string>
 #include "misc.h"
 
 namespace csv {
@@ -23,20 +22,9 @@ namespace csv {
 		{}
 
 		template<typename T>
-		static string_type to_string( T&& x ) {
-			return std::to_string( std::forward<T>(x) );
-		}
-
-		static string_type to_string( const char* x ) {
-			return string_type( x );
-		}
-
-		static string_type to_string( const string_type& x ) {
-			return x;
-		}
-
-		template<typename T>
 		void write_cell( T&& x ) {
+			using csv::to_string;
+			using std::to_string;
 			auto str = to_string( std::forward<T>(x) );
 			bool has_quote = str.find_first_of( quote ) != string_type::npos;
 			bool has_separ = str.find_first_of( separator ) != string_type::npos;
@@ -99,6 +87,19 @@ namespace csv {
 		}
 
 		void write_row() {
+			*out++ = new_line;
+		}
+
+		template<typename T,typename... Ts>
+		void write_partial_row( T&& x, Ts&&... xs ) {
+			write_cell( std::forward<T>(x) );
+			*out++ = separator;
+			write_partial_row( std::forward<Ts>(xs)... );
+		}
+
+		void write_partial_row() const {}
+
+		void write_row_end() {
 			*out++ = new_line;
 		}
 

@@ -10,6 +10,7 @@ examples/*/*.csv
 *.VC.db-shm
 *.VC.db-wal
 *.ipch
+*.log
 build/*/cwcsv/x64
 build/*/cwcsv/Win32
 build/*/examples/*/x64
