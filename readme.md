@@ -4,11 +4,45 @@ CSV reading and writing
 
 * No allocation on traversing cells and rows
 * Supports arbitrary separator, quote and newline symbols
+* Support embedded separator, quote and newline symbols in quoted fields
+* Reading and writing iterators are compatible with standard algorithms
+* Header only
+* Unit tested using Catch
+* Single-threaded
 
+## Benchmark
+
+A benchmark is included that counts the number of cells and rows in a given file.
+
+Running this on a 758 MB file containing 20 million rows with 6 cells each gives:
+
+```
+rows: 20239829
+cells: 121438974
+cells/row: 6
+time: 0.798856 s
+rate: 152 cells/us
+```
+
+A smaller version of the file is included, `bench/sample.csv`, which yields similar performance of 150 cells per microsecond.
+
+Note this excludes the time taken to load the file into memory.
 
 ## Reading
 
-### From a string literal
+Cells and rows are iterated over using standard range-based for loops.
+
+The cell object contains the methods:
+
+* `to_string()`
+* `to_int()`
+* `to_long()`
+* `to_longlong()`
+* `to_double()`
+
+which convert the cell value to the respective type.
+
+### Example: from a string literal
 
 ```cpp
 auto& text = "a,b,c,d,e\n"
@@ -24,7 +58,7 @@ for( auto&& row : parser ) {
 }
 ```
 
-### From a file
+### Example: from a file
 
 ```cpp
 // first load the file into a std::string
@@ -39,6 +73,8 @@ for( auto&& row : parser ) {
 	cout << '\n';
 }
 ```
+
+We can also use standard algorithms:
 
 ```cpp
 auto row = parser.begin();
@@ -56,7 +92,7 @@ cout << '\n';
 
 ## Writing
 
-### To string
+### Example: to string
 
 ```cpp
 std::string out;
@@ -71,7 +107,7 @@ auto vals = { 100.2, 103.1, 98.6, 101.5 };
 writer.write_row_range( vals.begin(), vals.end() );
 ```
 
-### To file
+### Example: to file
 
 ```cpp
 std::ofstream out("test.csv");
