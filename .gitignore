@@ -2,6 +2,7 @@ bin/
 lib/
 
 examples/*/*.csv
+bench/sample2.csv
 
 # Visual Studio stuff
 *.suo
