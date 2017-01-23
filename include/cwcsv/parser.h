@@ -12,10 +12,6 @@ namespace csv {
 		using iterator = row_type;
 		using char_type = typename std::iterator_traits<It>::value_type;
 
-		It data_beg, data_end;
-
-		char_type separator, quote, new_line;
-
 		parser( It data_beg, It data_end, char_type sep, char_type quot, char_type nline ) :
 			data_beg(data_beg),
 			data_end(data_end),
@@ -42,6 +38,9 @@ namespace csv {
 			return iterator( data_end, data_end, data_end, separator, quote, new_line );
 		}
 
+	private:
+		It data_beg, data_end;
+		char_type separator, quote, new_line;
 	};
 	
 	template<typename It>

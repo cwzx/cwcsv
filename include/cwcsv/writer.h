@@ -10,10 +10,6 @@ namespace csv {
 		using char_type = Char;
 		using string_type = std::basic_string<char_type>;
 
-		It out;
-
-		char_type separator, quote, new_line;
-
 		writer( It out, char_type sep, char_type quot, char_type nline ) :
 			out(out),
 			separator(sep),
@@ -103,6 +99,9 @@ namespace csv {
 			*out++ = new_line;
 		}
 
+	private:
+		It out;
+		char_type separator, quote, new_line;
 	};
 
 	template<typename It,typename C=Char<It>>

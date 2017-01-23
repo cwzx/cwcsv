@@ -15,11 +15,6 @@ namespace csv {
 		using difference_type = ptrdiff_t;
 		using char_type = typename std::iterator_traits<It>::value_type;
 
-		It row_begin, row_end;
-		It data_end;
-
-		char_type separator, quote, new_line;
-
 		row( It row_begin, It row_end, It data_end, char_type sep, char_type quot, char_type nline ) :
 			row_begin(row_begin),
 			row_end(row_end),
@@ -79,6 +74,9 @@ namespace csv {
 			return !(*this == rhs);
 		}
 
+	private:
+		It row_begin, row_end, data_end;
+		char_type separator, quote, new_line;
 	};
 
 }

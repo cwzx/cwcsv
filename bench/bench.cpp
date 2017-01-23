@@ -28,6 +28,9 @@ void benchmark( const std::string& data, int32_t N ) {
 	auto time_us = duration_cast<microseconds>( time_elapsed );
 	auto time_s = duration_cast<duration<double>>( time_elapsed );
 
+	if( nb_rows == 0 )
+		return;
+
 	std::cout
 		<< "rows: " << nb_rows
 		<< "\ncells: " << nb_cells

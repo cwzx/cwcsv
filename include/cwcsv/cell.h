@@ -72,11 +72,6 @@ namespace csv {
 		using difference_type = ptrdiff_t;
 		using string_type = std::basic_string<char_type>;
 
-		It cell_begin, cell_end;
-		It row_end;
-
-		char_type separator, quote;
-
 		cell( It cell_begin, It cell_end, It row_end, char_type sep, char_type quo ) :
 			cell_begin(cell_begin),
 			cell_end(cell_end),
@@ -220,6 +215,9 @@ namespace csv {
 			return !(*this == rhs);
 		}
 
+	private:
+		It cell_begin, cell_end, row_end;
+		char_type separator, quote;
 	};
 
 }
