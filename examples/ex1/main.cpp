@@ -14,7 +14,7 @@ int main( int argc, char** argv ) {
 
 	for( auto&& row : parser ) {
 		for( auto&& cell : row ) {
-			cout << '[' << cell.to_string() << ']';
+			cout << '[' << cell.to_string_view() << ']';
 		}
 		cout << '\n';
 	}

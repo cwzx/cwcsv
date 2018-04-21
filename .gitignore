@@ -3,6 +3,7 @@ lib/
 
 examples/*/*.csv
 bench/sample2.csv
+bench/afsample.csv
 bench/*.tbl
 
 # Visual Studio stuff

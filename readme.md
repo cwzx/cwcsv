@@ -42,6 +42,12 @@ The cell object contains the methods:
 
 which convert the cell value to the respective type.
 
+It is also possible to get a string view into the raw data:
+
+* `to_string_view()`
+
+which allows you to avoid allocation if no conversion is required.
+
 ### Example: from a string literal
 
 ```cpp
@@ -52,7 +58,7 @@ auto parser = csv::make_parser( text );
 
 for( auto&& row : parser ) {
 	for( auto&& cell : row ) {
-		cout << '[' << cell.to_string() << ']';
+		cout << '[' << cell.to_string_view() << ']';
 	}
 	cout << '\n';
 }
